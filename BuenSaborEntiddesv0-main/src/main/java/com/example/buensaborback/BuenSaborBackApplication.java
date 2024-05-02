@@ -152,7 +152,7 @@ public class BuenSaborBackApplication {
 			categoriaBebidas.getSubCategorias().add(categoriaGaseosas);
 			categoriaBebidas.getSubCategorias().add(categoriaTragos);
 			categoriaRepository.save(categoriaBebidas);
-/*
+
 			// Crear Insumos , coca cola , harina , etc
 			ArticuloInsumo cocaCola = ArticuloInsumo.builder().denominacion("Coca cola").unidadMedida(unidadMedidaLitros).esParaElaborar(false).stockActual(5).stockMaximo(50).precioCompra(50.0).precioVenta(70.0).build();
 			ArticuloInsumo harina = ArticuloInsumo.builder().denominacion("Harina").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(4).stockMaximo(40).precioCompra(40.0).precioVenta(60.5).build();
@@ -164,19 +164,22 @@ public class BuenSaborBackApplication {
 			Imagen imagenHarina = Imagen.builder().url("https://mandolina.co/wp-content/uploads/2023/03/648366622-1024x683.jpg").build();
 			Imagen imagenQueso = Imagen.builder().url("https://superdepaso.com.ar/wp-content/uploads/2021/06/SANTAROSA-PATEGRAS-04.jpg").build();
 			Imagen imagenTomate = Imagen.builder().url("https://thefoodtech.com/wp-content/uploads/2020/06/Componentes-de-calidad-en-el-tomate-828x548.jpg").build();
+
 			imagenRepository.save(imagenCoca);
 			imagenRepository.save(imagenHarina);
 			imagenRepository.save(imagenQueso);
 			imagenRepository.save(imagenTomate);
 
-			cocaCola.getImagenes().add(imagenCoca);
-			harina.getImagenes().add(imagenHarina);
-			queso.getImagenes().add(imagenQueso);
-			tomate.getImagenes().add(imagenTomate);
 			articuloInsumoRepository.save(cocaCola);
 			articuloInsumoRepository.save(harina);
 			articuloInsumoRepository.save(queso);
 			articuloInsumoRepository.save(tomate);
+
+			//cocaCola.getImagenes().add(imagenCoca);
+			//harina.getImagenes().add(imagenHarina);
+			//queso.getImagenes().add(imagenQueso);
+			//tomate.getImagenes().add(imagenTomate);
+
 
 			// Crear Articulos Manufacturados
 			ArticuloManufacturado pizzaMuzarella = ArticuloManufacturado.builder().denominacion("Pizza Muzarella").descripcion("Una pizza clasica").unidadMedida(unidadMedidaPorciones).precioVenta(130.0).tiempoEstimadoMinutos(15).preparacion("Pasos de preparacion de una muzza de toda la vida").build();
@@ -188,8 +191,8 @@ public class BuenSaborBackApplication {
 			imagenRepository.save(imagenPizzaMuzarella);
 			imagenRepository.save(imagenPizzaNapolitana);
 
-			pizzaMuzarella.getImagenes().add(imagenPizzaMuzarella);
-			pizzaNapolitana.getImagenes().add(imagenPizzaNapolitana);
+			//pizzaMuzarella.getImagenes().add(imagenPizzaMuzarella);
+			//pizzaNapolitana.getImagenes().add(imagenPizzaNapolitana);
 			articuloManufacturadoRepository.save(pizzaMuzarella);
 			articuloManufacturadoRepository.save(pizzaNapolitana);
 
@@ -276,7 +279,7 @@ public class BuenSaborBackApplication {
 
 			cliente.getPedidos().add(pedido);
 			clienteRepository.save(cliente);
-
+			/*
 			logger.info("----------------Sucursal Chacras ---------------------");
 			logger.info("{}",sucursalChacras);
 			logger.info("----------------Sucursal Godoy Cruz ---------------------");
