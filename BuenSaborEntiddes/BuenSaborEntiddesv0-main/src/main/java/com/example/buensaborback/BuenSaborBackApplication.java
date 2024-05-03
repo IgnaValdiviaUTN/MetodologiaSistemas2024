@@ -20,11 +20,6 @@ import java.util.HashSet;
 
 @SpringBootApplication
 public class BuenSaborBackApplication {
-// Aca tiene que inyectar todos los repositorios
-// Es por ello que deben crear el paquete reositorio
-
-// Ejemplo  @Autowired
-//private ClienteRepository clienteRepositoryy;
 
 	private static final Logger logger = LoggerFactory.getLogger(BuenSaborBackApplication.class);
 
@@ -90,13 +85,13 @@ public class BuenSaborBackApplication {
 			// Crear 1 pais
 			// Crear 2 provincias para ese pais
 			// crear 2 localidades para cada provincia
-			Pais pais1 = Pais.builder().nombre("Argentina").build();
-			Provincia provincia1 = Provincia.builder().nombre("Mendoza").pais(pais1).build();
-			Provincia provincia2 = Provincia.builder().nombre("Cordoba").pais(pais1).build();
-			Localidad localidad1 = Localidad.builder().nombre("Lujan de Cuyo").provincia(provincia1).build();
-			Localidad localidad2 = Localidad.builder().nombre("Godoy Cruz").provincia(provincia1).build();
-			Localidad localidad3 = Localidad.builder().nombre("Achiras").provincia(provincia2).build();
-			Localidad localidad4 = Localidad.builder().nombre("Agua de Oro").provincia(provincia2).build();
+			Pais pais1 = Pais.builder().nombre("Brazilasao").build();
+			Provincia provincia1 = Provincia.builder().nombre("Mendozao").pais(pais1).build();
+			Provincia provincia2 = Provincia.builder().nombre("Cordobao").pais(pais1).build();
+			Localidad localidad1 = Localidad.builder().nombre("Lujan de Cuyao").provincia(provincia1).build();
+			Localidad localidad2 = Localidad.builder().nombre("Godinho Cruzao").provincia(provincia1).build();
+			Localidad localidad3 = Localidad.builder().nombre("Achirasinho").provincia(provincia2).build();
+			Localidad localidad4 = Localidad.builder().nombre("Agua de Orao").provincia(provincia2).build();
 
 			paisRepository.save(pais1);
 			provinciaRepository.save(provincia1);
@@ -155,6 +150,7 @@ public class BuenSaborBackApplication {
 			categoriaBebidas.getSubCategorias().add(categoriaGaseosas);
 			categoriaBebidas.getSubCategorias().add(categoriaTragos);
 			categoriaRepository.save(categoriaBebidas);
+
 
 			// Crear Insumos , coca cola , harina , etc
 			ArticuloInsumo cocaCola = ArticuloInsumo.builder().denominacion("Coca cola").unidadMedida(unidadMedidaLitros).esParaElaborar(false).stockActual(5).stockMaximo(50).precioCompra(50.0).precioVenta(70.0).categoria(categoriaBebidas).build();
@@ -247,10 +243,9 @@ public class BuenSaborBackApplication {
 			sucursalRepository.save(sucursalChacras);
 			sucursalRepository.save(sucursalGodoyCruz);
 
-            //Crear un Factura
 
-            Factura factura = Factura.builder().fechaFacturacion(LocalDate.now()).formaPago(FormaPago.Efectivo).totalVenta(50000.2).build();
-            facturaRepository.save(factura);
+
+
 
 			//Crea un cliente y un usuario
 			Imagen imagenCliente = Imagen.builder().url("https://hips.hearstapps.com/hmg-prod/images/la-la-land-final-1638446140.jpg").build();
@@ -267,6 +262,8 @@ public class BuenSaborBackApplication {
 			cliente.getDomicilios().add(domicilioViamonte);
 			clienteRepository.save(cliente);
 
+			//Crear un Factura
+
 			//Crea un pedido para el cliente
 			Pedido pedido = Pedido.builder().fechaPedido(LocalDate.now())
 							.horaEstimadaFinalizacion(LocalTime.now())
@@ -277,7 +274,6 @@ public class BuenSaborBackApplication {
 					.tipoEnvio(TipoEnvio.Delivery)
 					.sucursal(sucursalChacras)
                     .cliente(cliente)
-                    .factura(factura)
 					.domicilio(domicilioViamonte).build();
 
 			DetallePedido detallePedido1 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).subTotal(200.0).pedido(pedido).build();
@@ -287,15 +283,11 @@ public class BuenSaborBackApplication {
 			pedido.getDetallePedidos().add(detallePedido2);
 			pedidoRepository.save(pedido);
 
+			Factura factura = Factura.builder().fechaFacturacion(LocalDate.now()).formaPago(FormaPago.Efectivo).totalVenta(50000.2).pedido(pedido).build();
+			facturaRepository.save(factura);
 			cliente.getPedidos().add(pedido);
 			clienteRepository.save(cliente);
-			/*
-			logger.info("----------------Sucursal Chacras ---------------------");
-			logger.info("{}",sucursalChacras);
-			logger.info("----------------Sucursal Godoy Cruz ---------------------");
-			logger.info("{}",sucursalGodoyCruz);
-			logger.info("----------------Pedido ---------------------");
-			logger.info("{}",pedido);*/
+
 		};
 	}
 }

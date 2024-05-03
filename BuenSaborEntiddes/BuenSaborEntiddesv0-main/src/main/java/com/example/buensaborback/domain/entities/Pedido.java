@@ -40,7 +40,7 @@ public class Pedido extends Base{
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToOne
+    @OneToOne(mappedBy = "pedido")
     private Factura factura;
 
 
