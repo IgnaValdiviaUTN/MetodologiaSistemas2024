@@ -24,7 +24,7 @@ public class BuenSaborBackApplication {
 // Es por ello que deben crear el paquete reositorio
 
 // Ejemplo  @Autowired
-//	private ClienteRepository clienteRepository;
+//private ClienteRepository clienteRepositoryy;
 
 	private static final Logger logger = LoggerFactory.getLogger(BuenSaborBackApplication.class);
 
@@ -72,6 +72,9 @@ public class BuenSaborBackApplication {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private FacturaRepository facturaRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BuenSaborBackApplication.class, args);
@@ -143,9 +146,9 @@ public class BuenSaborBackApplication {
 			// Crear Categorías de productos y subCategorías de los mismos
 			Categoria categoriaBebidas = Categoria.builder().denominacion("Bebidas").build();
 			categoriaRepository.save(categoriaBebidas);
-			Categoria categoriaGaseosas = Categoria.builder().denominacion("Gaseosas").build();
+			Categoria categoriaGaseosas = Categoria.builder().denominacion("Gaseosas").categoriaPadre(categoriaBebidas).build();
 			categoriaRepository.save(categoriaGaseosas);
-			Categoria categoriaTragos = Categoria.builder().denominacion("Tragos").build();
+			Categoria categoriaTragos = Categoria.builder().denominacion("Tragos").categoriaPadre(categoriaBebidas).build();
 			categoriaRepository.save(categoriaTragos);
 			Categoria categoriaPizzas = Categoria.builder().denominacion("Pizzas").build();
 			categoriaRepository.save(categoriaPizzas);
@@ -154,54 +157,50 @@ public class BuenSaborBackApplication {
 			categoriaRepository.save(categoriaBebidas);
 
 			// Crear Insumos , coca cola , harina , etc
-			ArticuloInsumo cocaCola = ArticuloInsumo.builder().denominacion("Coca cola").unidadMedida(unidadMedidaLitros).esParaElaborar(false).stockActual(5).stockMaximo(50).precioCompra(50.0).precioVenta(70.0).build();
+			ArticuloInsumo cocaCola = ArticuloInsumo.builder().denominacion("Coca cola").unidadMedida(unidadMedidaLitros).esParaElaborar(false).stockActual(5).stockMaximo(50).precioCompra(50.0).precioVenta(70.0).categoria(categoriaBebidas).build();
 			ArticuloInsumo harina = ArticuloInsumo.builder().denominacion("Harina").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(4).stockMaximo(40).precioCompra(40.0).precioVenta(60.5).build();
 			ArticuloInsumo queso = ArticuloInsumo.builder().denominacion("Queso").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(20).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
 			ArticuloInsumo tomate = ArticuloInsumo.builder().denominacion("Tomate").unidadMedida(unidadMedidaCantidad).esParaElaborar(true).stockActual(20).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
 
 			// crear fotos para cada insumo
-			Imagen imagenCoca = Imagen.builder().url("https://m.media-amazon.com/images/I/51v8nyxSOYL._SL1500_.jpg").build();
-			Imagen imagenHarina = Imagen.builder().url("https://mandolina.co/wp-content/uploads/2023/03/648366622-1024x683.jpg").build();
-			Imagen imagenQueso = Imagen.builder().url("https://superdepaso.com.ar/wp-content/uploads/2021/06/SANTAROSA-PATEGRAS-04.jpg").build();
-			Imagen imagenTomate = Imagen.builder().url("https://thefoodtech.com/wp-content/uploads/2020/06/Componentes-de-calidad-en-el-tomate-828x548.jpg").build();
+			Imagen imagenCoca = Imagen.builder().url("https://m.media-amazon.com/images/I/51v8nyxSOYL._SL1500_.jpg").articulo(cocaCola).build();
+			Imagen imagenHarina = Imagen.builder().url("https://mandolina.co/wp-content/uploads/2023/03/648366622-1024x683.jpg").articulo(harina).build();
+			Imagen imagenQueso = Imagen.builder().url("https://superdepaso.com.ar/wp-content/uploads/2021/06/SANTAROSA-PATEGRAS-04.jpg").articulo(queso).build();
+			Imagen imagenTomate = Imagen.builder().url("https://thefoodtech.com/wp-content/uploads/2020/06/Componentes-de-calidad-en-el-tomate-828x548.jpg").articulo(tomate).build();
 
-			imagenRepository.save(imagenCoca);
-			imagenRepository.save(imagenHarina);
-			imagenRepository.save(imagenQueso);
-			imagenRepository.save(imagenTomate);
+            articuloInsumoRepository.save(cocaCola);
+            articuloInsumoRepository.save(harina);
+            articuloInsumoRepository.save(queso);
+            articuloInsumoRepository.save(tomate);
 
-			articuloInsumoRepository.save(cocaCola);
-			articuloInsumoRepository.save(harina);
-			articuloInsumoRepository.save(queso);
-			articuloInsumoRepository.save(tomate);
+            cocaCola.getImagenes().add(imagenCoca);
+            harina.getImagenes().add(imagenHarina);
+            queso.getImagenes().add(imagenQueso);
+            tomate.getImagenes().add(imagenTomate);
 
-			//cocaCola.getImagenes().add(imagenCoca);
-			//harina.getImagenes().add(imagenHarina);
-			//queso.getImagenes().add(imagenQueso);
-			//tomate.getImagenes().add(imagenTomate);
-
+            imagenRepository.save(imagenCoca);
+            imagenRepository.save(imagenHarina);
+            imagenRepository.save(imagenQueso);
+            imagenRepository.save(imagenTomate);
 
 			// Crear Articulos Manufacturados
-			ArticuloManufacturado pizzaMuzarella = ArticuloManufacturado.builder().denominacion("Pizza Muzarella").descripcion("Una pizza clasica").unidadMedida(unidadMedidaPorciones).precioVenta(130.0).tiempoEstimadoMinutos(15).preparacion("Pasos de preparacion de una muzza de toda la vida").build();
-			ArticuloManufacturado pizzaNapolitana = ArticuloManufacturado.builder().denominacion("Pizza Muzarella").descripcion("Una pizza clasica").unidadMedida(unidadMedidaPorciones).precioVenta(150.0).tiempoEstimadoMinutos(15).preparacion("Pasos de preparacion de una pizza napolitana italiana").build();
+			ArticuloManufacturado pizzaMuzarella = ArticuloManufacturado.builder().denominacion("Pizza Muzarella").descripcion("Una pizza clasica").unidadMedida(unidadMedidaPorciones).precioVenta(130.0).tiempoEstimadoMinutos(15).preparacion("Pasos de preparacion de una muzza de toda la vida").categoria(categoriaPizzas).build();
+			ArticuloManufacturado pizzaNapolitana = ArticuloManufacturado.builder().denominacion("Pizza Muzarella").descripcion("Una pizza clasica").unidadMedida(unidadMedidaPorciones).precioVenta(150.0).tiempoEstimadoMinutos(15).preparacion("Pasos de preparacion de una pizza napolitana italiana").categoria(categoriaPizzas).build();
 
 			// Crear fotos para los artículos manufacturados
-			Imagen imagenPizzaMuzarella = Imagen.builder().url("https://storage.googleapis.com/fitia-api-bucket/media/images/recipe_images/1002846.jpg").build();
-			Imagen imagenPizzaNapolitana = Imagen.builder().url("https://assets.elgourmet.com/wp-content/uploads/2023/03/8metlvp345_portada-pizza-1024x686.jpg.webp").build();
-			imagenRepository.save(imagenPizzaMuzarella);
-			imagenRepository.save(imagenPizzaNapolitana);
-
-			//pizzaMuzarella.getImagenes().add(imagenPizzaMuzarella);
-			//pizzaNapolitana.getImagenes().add(imagenPizzaNapolitana);
+			Imagen imagenPizzaMuzarella = Imagen.builder().url("https://storage.googleapis.com/fitia-api-bucket/media/images/recipe_images/1002846.jpg").articulo(pizzaMuzarella).build();
+			Imagen imagenPizzaNapolitana = Imagen.builder().url("https://assets.elgourmet.com/wp-content/uploads/2023/03/8metlvp345_portada-pizza-1024x686.jpg.webp").articulo(pizzaNapolitana).build();
 			articuloManufacturadoRepository.save(pizzaMuzarella);
 			articuloManufacturadoRepository.save(pizzaNapolitana);
+            imagenRepository.save(imagenPizzaMuzarella);
+            imagenRepository.save(imagenPizzaNapolitana);
 
 			// Establecer las relaciones entre estos objetos.
-			ArticuloManufacturadoDetalle detalle1 = ArticuloManufacturadoDetalle.builder().articuloInsumo(harina).cantidad(300).build();
-			ArticuloManufacturadoDetalle detalle2 = ArticuloManufacturadoDetalle.builder().articuloInsumo(queso).cantidad(600).build();
-			ArticuloManufacturadoDetalle detalle3 = ArticuloManufacturadoDetalle.builder().articuloInsumo(harina).cantidad(350).build();
-			ArticuloManufacturadoDetalle detalle4 = ArticuloManufacturadoDetalle.builder().articuloInsumo(queso).cantidad(650).build();
-			ArticuloManufacturadoDetalle detalle5 = ArticuloManufacturadoDetalle.builder().articuloInsumo(tomate).cantidad(2).build();
+			ArticuloManufacturadoDetalle detalle1 = ArticuloManufacturadoDetalle.builder().articuloInsumo(harina).articuloManufacturado(pizzaMuzarella).cantidad(300).build();
+			ArticuloManufacturadoDetalle detalle2 = ArticuloManufacturadoDetalle.builder().articuloInsumo(queso).articuloManufacturado(pizzaMuzarella).cantidad(600).build();
+			ArticuloManufacturadoDetalle detalle3 = ArticuloManufacturadoDetalle.builder().articuloInsumo(harina).articuloManufacturado(pizzaNapolitana).cantidad(350).build();
+			ArticuloManufacturadoDetalle detalle4 = ArticuloManufacturadoDetalle.builder().articuloInsumo(queso).articuloManufacturado(pizzaNapolitana).cantidad(650).build();
+			ArticuloManufacturadoDetalle detalle5 = ArticuloManufacturadoDetalle.builder().articuloInsumo(tomate).articuloManufacturado(pizzaNapolitana).cantidad(2).build();
 
 			pizzaMuzarella.getArticuloManufacturadoDetalles().add(detalle1);
 			pizzaMuzarella.getArticuloManufacturadoDetalles().add(detalle2);
@@ -233,6 +232,10 @@ public class BuenSaborBackApplication {
 			promocionDiaEnamorados.getArticulos().add(pizzaNapolitana);
 			promocionRepository.save(promocionDiaEnamorados);
 
+            //Crear una imagen para promocion
+            Imagen imagenPromocionEnamorados = Imagen.builder().url("https://imgs.search.brave.com/l5ghkrUC13EzRCT1auORGqNJ4np5L-UOvKb_fOMKvH0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuZGV2LWZpbG8u/ZGlmdC5pby9pbWcv/MjAyMy8wMi8xMy91/bm5hbWVkNDEpXygx/KTgwMjVfc3EuanBn").promocion(promocionDiaEnamorados).build();
+            promocionDiaEnamorados.getImagenes().add(imagenPromocionEnamorados);
+            imagenRepository.save(imagenPromocionEnamorados);
 			//Agregar categorias y promociones a sucursales
 			sucursalChacras.getCategorias().add(categoriaBebidas);
 			sucursalChacras.getCategorias().add(categoriaPizzas);
@@ -243,6 +246,11 @@ public class BuenSaborBackApplication {
 
 			sucursalRepository.save(sucursalChacras);
 			sucursalRepository.save(sucursalGodoyCruz);
+
+            //Crear un Factura
+
+            Factura factura = Factura.builder().fechaFacturacion(LocalDate.now()).formaPago(FormaPago.Efectivo).totalVenta(50000.2).build();
+            facturaRepository.save(factura);
 
 			//Crea un cliente y un usuario
 			Imagen imagenCliente = Imagen.builder().url("https://hips.hearstapps.com/hmg-prod/images/la-la-land-final-1638446140.jpg").build();
@@ -268,10 +276,12 @@ public class BuenSaborBackApplication {
 					.formaPago(FormaPago.MercadoPago)
 					.tipoEnvio(TipoEnvio.Delivery)
 					.sucursal(sucursalChacras)
+                    .cliente(cliente)
+                    .factura(factura)
 					.domicilio(domicilioViamonte).build();
 
-			DetallePedido detallePedido1 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).subTotal(200.0).build();
-			DetallePedido detallePedido2 = DetallePedido.builder().articulo(cocaCola).cantidad(2).subTotal(100.0).build();
+			DetallePedido detallePedido1 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).subTotal(200.0).pedido(pedido).build();
+			DetallePedido detallePedido2 = DetallePedido.builder().articulo(cocaCola).cantidad(2).subTotal(100.0).pedido(pedido).build();
 
 			pedido.getDetallePedidos().add(detallePedido1);
 			pedido.getDetallePedidos().add(detallePedido2);

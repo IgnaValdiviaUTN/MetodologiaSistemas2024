@@ -25,8 +25,8 @@ public class ArticuloManufacturado extends Articulo {
     private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles;
 
     @Builder
-    public ArticuloManufacturado(String denominacion, Double precioVenta, UnidadMedida unidadMedida, String descripcion, Integer tiempoEstimadoMinutos, String preparacion) {
-        super(denominacion, precioVenta, unidadMedida);
+    public ArticuloManufacturado(String denominacion, Double precioVenta, UnidadMedida unidadMedida, String descripcion, Integer tiempoEstimadoMinutos, String preparacion,Categoria categoria) {
+        super(denominacion, precioVenta, unidadMedida,categoria);
         this.descripcion = descripcion;
         this.tiempoEstimadoMinutos = tiempoEstimadoMinutos;
         this.preparacion = preparacion;

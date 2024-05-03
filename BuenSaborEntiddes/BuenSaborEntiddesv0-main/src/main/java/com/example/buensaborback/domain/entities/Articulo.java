@@ -31,12 +31,13 @@ public class Articulo extends Base {
     private UnidadMedida unidadMedida;
 
 
-    public Articulo(String denominacion, Double precioVenta, UnidadMedida unidadMedida){
+    public Articulo(String denominacion, Double precioVenta, UnidadMedida unidadMedida, Categoria categoria){
         super();
         this.denominacion = denominacion;
         this.precioVenta = precioVenta;
         this.unidadMedida = unidadMedida;
         this.imagenes = new HashSet<>();
+        this.categoria = categoria;
     }
 
 }

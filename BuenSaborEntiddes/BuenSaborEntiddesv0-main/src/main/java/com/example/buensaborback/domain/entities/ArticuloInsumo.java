@@ -21,12 +21,13 @@ public class ArticuloInsumo extends Articulo {
     private Boolean esParaElaborar;
 
     @Builder
-    public ArticuloInsumo(String denominacion, Double precioVenta, UnidadMedida unidadMedida, Double precioCompra, Integer stockActual, Integer stockMaximo, Boolean esParaElaborar) {
-        super(denominacion, precioVenta,unidadMedida);
+    public ArticuloInsumo(String denominacion, Double precioVenta, UnidadMedida unidadMedida, Double precioCompra, Integer stockActual, Integer stockMaximo, Boolean esParaElaborar,Categoria categoria) {
+        super(denominacion, precioVenta,unidadMedida,categoria);
         this.precioCompra = precioCompra;
         this.stockActual = stockActual;
         this.stockMaximo = stockMaximo;
         this.esParaElaborar = esParaElaborar;
+
     }
 
 }
