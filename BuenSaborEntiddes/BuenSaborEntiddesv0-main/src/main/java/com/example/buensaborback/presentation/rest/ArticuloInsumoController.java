@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/articulosInsumos")
+@CrossOrigin(origins = "*")
 public class ArticuloInsumoController extends BaseControllerImpl<ArticuloInsumo, ArticuloInsumoDto,Long, ArticuloInsumoFacadeImpl> {
 
     private static final Logger logger = LoggerFactory.getLogger(ArticuloInsumoController.class);

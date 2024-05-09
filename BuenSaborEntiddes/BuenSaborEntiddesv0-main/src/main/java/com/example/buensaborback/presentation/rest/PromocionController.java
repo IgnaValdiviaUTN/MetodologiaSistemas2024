@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/promociones")
+@CrossOrigin(origins = "*")
 public class PromocionController extends BaseControllerImpl<Promocion, PromocionDto, Long, PromocionFacadeImpl> {
 
     private static final Logger logger = LoggerFactory.getLogger(PromocionController.class);

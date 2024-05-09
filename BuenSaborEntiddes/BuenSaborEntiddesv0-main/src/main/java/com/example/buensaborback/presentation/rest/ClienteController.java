@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = "*")
 public class ClienteController extends BaseControllerImpl<Cliente, ClienteDto,Long, ClienteFacadeImpl> {
 
     private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);

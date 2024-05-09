@@ -39,6 +39,7 @@ public abstract class BaseControllerImpl<E extends Base,D extends BaseDto, ID ex
 
     @PutMapping("/{id}")
     public ResponseEntity<D> edit(@RequestBody D entity, @PathVariable ID id){
+        logger.info("ID: "+id);
         logger.info("INICIO EDIT {}",entity.getClass());
         return ResponseEntity.ok(facade.update(entity, id));
     }

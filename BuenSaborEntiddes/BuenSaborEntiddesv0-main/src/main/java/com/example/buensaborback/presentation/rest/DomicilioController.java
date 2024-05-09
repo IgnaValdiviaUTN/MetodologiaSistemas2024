@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/domicilios")
+@CrossOrigin(origins = "*")
 public class DomicilioController extends BaseControllerImpl<Domicilio, DomicilioDto,Long, DomicilioFacadeImpl> {
 
     private static final Logger logger = LoggerFactory.getLogger(DomicilioController.class);

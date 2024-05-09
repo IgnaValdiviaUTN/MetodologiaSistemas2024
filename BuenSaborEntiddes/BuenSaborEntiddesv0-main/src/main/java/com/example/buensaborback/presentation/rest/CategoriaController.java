@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categorias")
+@CrossOrigin(origins = "*")
 public class CategoriaController extends BaseControllerImpl<Categoria, CategoriaDto,Long, CategoriaFacadeImpl> {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoriaController.class);

@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/provincias")
+@CrossOrigin(origins = "*")
 public class ProvinciaController extends BaseControllerImpl<Provincia, ProvinciaDto,Long, ProvinciaFacadeImpl> {
 
     private static final Logger logger = LoggerFactory.getLogger(ProvinciaController.class);

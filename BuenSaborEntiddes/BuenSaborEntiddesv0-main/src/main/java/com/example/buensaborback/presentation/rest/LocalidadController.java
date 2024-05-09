@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/localidades")
+@CrossOrigin(origins = "*")
 public class LocalidadController extends BaseControllerImpl<Localidad, LocalidadDto,Long, LocalidadFacadeImpl> {
     private static final Logger logger = LoggerFactory.getLogger(LocalidadController.class);
     public LocalidadController(LocalidadFacadeImpl facade) {

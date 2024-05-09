@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/empresas")
+@CrossOrigin(origins = "*")
 public class EmpresaController extends BaseControllerImpl<Empresa, EmpresaDto,Long, EmpresaFacadeImpl> {
     private static final Logger logger = LoggerFactory.getLogger(EmpresaController.class);
     public EmpresaController(EmpresaFacadeImpl facade) {
@@ -30,4 +31,5 @@ public class EmpresaController extends BaseControllerImpl<Empresa, EmpresaDto,Lo
         logger.info("INICIO REMOVER SUCURSALES A EMPRESA");
         return ResponseEntity.ok(facade.removerSucursales(id,sucursalesIds));
     }
+
 }

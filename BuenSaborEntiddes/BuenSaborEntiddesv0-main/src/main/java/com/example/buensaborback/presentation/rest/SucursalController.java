@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sucursales")
+@CrossOrigin(origins = "*")
 public class SucursalController extends BaseControllerImpl<Sucursal, SucursalDto,Long, SucursalFacadeImpl> {
 
     private static final Logger logger = LoggerFactory.getLogger(SucursalController.class);

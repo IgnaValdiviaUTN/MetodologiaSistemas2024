@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/articulosManufacturados")
+@CrossOrigin(origins = "*")
 public class ArticuloManufacturadoController extends BaseControllerImpl<ArticuloManufacturado, ArticuloManufacturadoDto,Long, ArticuloManufacturadoFacadeImpl> {
 
     private static final Logger logger = LoggerFactory.getLogger(ArticuloManufacturadoController.class);
